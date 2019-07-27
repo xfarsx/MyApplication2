@@ -17,11 +17,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import br.com.digitalhouse.database.MainActivityDatabase;
 import br.com.digitalhouse.myapplication.R;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText email,password;
-    Button registerButton, loginButtonGoogle, button_login;
+    Button registerButton, loginButtonGoogle, button_login, btnDatabase;
     FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.button_register);
         loginButtonGoogle = (Button) findViewById(R.id.account_google_login);
         button_login =(Button) findViewById(R.id.button_login);
+        btnDatabase = findViewById(R.id.database);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -103,9 +105,20 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        btnDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), MainActivityDatabase.class);
+                startActivity(intent);
+
+            }
+        });
 
         if(firebaseAuth.getCurrentUser()!=null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }
+
+
     }
 }
